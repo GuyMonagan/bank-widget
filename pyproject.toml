@@ -43,6 +43,8 @@ profile = "black"
 disallow_untyped_defs = true
 warn_return_any = true
 exclude = "venv"
+mypy_path = "src"
+explicit_package_bases = true
 
 [build-system]
 requires = ["poetry-core"]
