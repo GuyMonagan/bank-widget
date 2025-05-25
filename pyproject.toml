@@ -2,7 +2,7 @@
 name = "bank-widget"
 version = "0.1.0"
 description = ""
-authors = ["GuyMonagan <werevalkcury@gmail.com>"]
+authors = ["GuyMonagan <werevalkury@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "masks", from = "src" }
