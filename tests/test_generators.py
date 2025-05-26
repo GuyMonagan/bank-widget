@@ -24,6 +24,32 @@ def test_transaction_descriptions(sample_transactions):
         "Перевод со счета",
     ]
 
+
 def test_transaction_descriptions_empty():
     result = list(transaction_descriptions([]))
+    assert result == []
+
+
+from generators import card_number_generator
+
+
+def test_card_number_generator_basic():
+    result = list(card_number_generator(1, 3))
+    assert result == [
+        "0000 0000 0000 0001",
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+    ]
+
+
+def test_card_number_generator_edges():
+    result = list(card_number_generator(9999_9999_9999_9998, 9999_9999_9999_9999))
+    assert result == [
+        "9999 9999 9999 9998",
+        "9999 9999 9999 9999",
+    ]
+
+
+def test_card_number_generator_empty_range():
+    result = list(card_number_generator(5, 4))
     assert result == []
