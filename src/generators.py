@@ -17,8 +17,16 @@ def filter_by_currency(transactions: list[dict], currency: str) -> Iterator[dict
             yield tx
 
 def transaction_descriptions(transactions: list[dict]) -> Iterator[str]:
-    """Генерирует описания транзакций по очереди."""
-    yield from ()  # TODO: заменить на логику
+    """
+    Генерирует описания транзакций по очереди.
+
+    :param transactions: список словарей с транзакциями
+    :return: генератор описаний
+    """
+    for tx in transactions:
+        description = tx.get("description")
+        if description:
+            yield description
 
 def card_number_generator(start: int, stop: int) -> Iterator[str]:
     """Генерирует номера карт в формате XXXX XXXX XXXX XXXX от start до stop включительно."""
