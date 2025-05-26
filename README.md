@@ -34,14 +34,67 @@ executed_ops = filter_by_state(operations)
 # Сортировка по дате (по умолчанию — по убыванию)
 sorted_ops = sort_by_date(executed_ops)
 ```
+## Модуль generators
+
+Модуль предназначен для работы с транзакциями и генерации данных в потоковом режиме.
+
+### Функции
+filter_by_currency(transactions: list[dict], currency: str) -> Iterator[dict]
+Возвращает итератор по транзакциям, где валюта совпадает с заданной.
+
+transaction_descriptions(transactions: list[dict]) -> Iterator[str]
+Генератор, возвращающий описания транзакций из списка.
+
+card_number_generator(start: int, stop: int) -> Iterator[str]
+Генератор, создающий номера карт в формате XXXX XXXX XXXX XXXX.
+
+### Примеры использования
+
+```
+from generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+transactions = [
+    {
+        "id": 1,
+        "operationAmount": {"amount": "1000", "currency": {"code": "USD", "name": "USD"}},
+        "description": "Перевод организации"
+    },
+    {
+        "id": 2,
+        "operationAmount": {"amount": "500", "currency": {"code": "RUB", "name": "руб."}},
+        "description": "Перевод со счета"
+    }
+]
+
+# Фильтрация по валюте
+usd_ops = filter_by_currency(transactions, "USD")
+print(next(usd_ops))  # Вернёт только транзакции в USD
+
+# Генерация описаний
+for desc in transaction_descriptions(transactions):
+    print(desc)
+
+# Генерация номеров карт
+for card in card_number_generator(1, 3):
+    print(card)
+# → 0000 0000 0000 0001
+# → 0000 0000 0000 0002
+# → 0000 0000 0000 0003
+```
+
+
 
 ## Тесты
 
 ```bash
 poetry run pytest
-poetry run flake8
 poetry run mypy src tests
-poetry run black --check .
+poetry run flake8
 poetry run isort --check .
+poetry run black --check .
+poetry run coverage run -m pytest
+poetry run coverage report
+poetry run coverage html  # HTML-отчёт будет в htmlcov/index.html
 ```
-
+>Покрытие тестами: 100%
+Используются фикстуры и параметризация
