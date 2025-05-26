@@ -1,5 +1,6 @@
+from typing import Any, Dict, List
+
 import pytest
-from typing import List, Dict, Any
 
 
 @pytest.fixture
@@ -41,4 +42,3 @@ def sample_transactions() -> List[Dict[str, Any]]:
             "description": "Перевод со счета",
         },
     ]
-

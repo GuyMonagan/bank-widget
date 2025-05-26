@@ -1,5 +1,6 @@
-from typing import List, Dict, Any
-from generators import filter_by_currency, transaction_descriptions, card_number_generator
+from typing import Any, Dict, List
+
+from generators import card_number_generator, filter_by_currency, transaction_descriptions
 
 
 def test_filter_by_currency_usd(sample_transactions: List[Dict[str, Any]]) -> None:
@@ -48,4 +49,3 @@ def test_card_number_generator_edges() -> None:
 def test_card_number_generator_empty_range() -> None:
     result = list(card_number_generator(5, 4))
     assert result == []
-

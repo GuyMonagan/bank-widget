@@ -1,5 +1,6 @@
+from typing import Dict, List
+
 import pytest
-from typing import List, Dict
 
 from processing import filter_by_state, sort_by_date
 
@@ -33,7 +34,6 @@ def test_sort_by_date_ascending(sample_operations: List[Dict[str, str]]) -> None
         ("REJECTED", 0),
     ],
 )
-
 def test_filter_by_state_param(state: str, expected_count: int, sample_operations: List[Dict[str, str]]) -> None:
     result = filter_by_state(sample_operations, state)
     assert len(result) == expected_count
