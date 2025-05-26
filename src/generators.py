@@ -41,5 +41,5 @@ def card_number_generator(start: int, stop: int) -> Iterator[str]:
     """
     for number in range(start, stop + 1):
         card_str = str(number).rjust(16, "0")
-        formatted = " ".join([card_str[i:i + 4] for i in range(0, 16, 4)])
+        formatted = " ".join([card_str[i : i + 4] for i in range(0, 16, 4)])
         yield formatted
