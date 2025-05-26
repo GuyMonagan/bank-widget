@@ -1,8 +1,9 @@
 import pytest
+from typing import List, Dict, Any
 
 
 @pytest.fixture
-def sample_operations():
+def sample_operations() -> List[Dict[str, Any]]:
     """Фикстура с примером банковских операций с разными статусами и датами."""
     return [
         {"id": 1, "state": "EXECUTED", "date": "2023-01-03T14:00:00"},
@@ -13,7 +14,7 @@ def sample_operations():
 
 
 @pytest.fixture
-def sample_transactions():
+def sample_transactions() -> List[Dict[str, Any]]:
     return [
         {
             "id": 1,
@@ -40,3 +41,4 @@ def sample_transactions():
             "description": "Перевод со счета",
         },
     ]
+
