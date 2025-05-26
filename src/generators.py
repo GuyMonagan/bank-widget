@@ -29,5 +29,15 @@ def transaction_descriptions(transactions: list[dict]) -> Iterator[str]:
             yield description
 
 def card_number_generator(start: int, stop: int) -> Iterator[str]:
-    """Генерирует номера карт в формате XXXX XXXX XXXX XXXX от start до stop включительно."""
-    yield from ()  # TODO: заменить на логику
+    """
+    Генератор номеров банковских карт в формате XXXX XXXX XXXX XXXX.
+
+    :param start: начальное значение (включительно)
+    :param stop: конечное значение (включительно)
+    :yield: строка с форматированным номером
+    """
+    for number in range(start, stop + 1):
+        card_str = str(number).rjust(16, "0")
+        formatted = " ".join([card_str[i:i+4] for i in range(0, 16, 4)])
+        yield formatted
+
