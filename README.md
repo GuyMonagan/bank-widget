@@ -82,7 +82,42 @@ for card in card_number_generator(1, 3):
 # → 0000 0000 0000 0003
 ```
 
+## Модуль decorators
 
+Модуль decorators предоставляет декоратор @log, который логирует вызовы функций и возможные ошибки.
+Поддерживает логирование как в консоль, так и в файл.
+
+### Пример использования:
+
+```
+from decorators import log
+
+@log()
+def add(x: int, y: int) -> int:
+    return x + y
+
+@log(filename="errors.log")
+def divide(x: int, y: int) -> float:
+    return x / y
+
+add(2, 3)        # Лог: add ok
+divide(1, 0)     # Лог: divide error: ZeroDivisionError
+
+```
+### Вывод в консоль
+```
+add ok
+divide error: ZeroDivisionError
+Inputs: (1, 0)
+
+```
+### Вывод в файл (errors.log)
+
+```
+divide error: ZeroDivisionError
+Inputs: (1, 0)
+
+```
 
 ## Тесты
 
