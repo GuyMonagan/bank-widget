@@ -1,10 +1,13 @@
-import os
+from pathlib import Path
+
 import pytest
+from _pytest.capture import CaptureFixture
+
 from decorators import log
 
 
 # === Тест логирования в консоль (успешный вызов) ===
-def test_log_to_console_success(capsys) -> None:
+def test_log_to_console_success(capsys: CaptureFixture[str]) -> None:
     @log()
     def add(x: int, y: int) -> int:
         return x + y
@@ -15,7 +18,7 @@ def test_log_to_console_success(capsys) -> None:
 
 
 # === Тест логирования в консоль (ошибка) ===
-def test_log_to_console_error(capsys) -> None:
+def test_log_to_console_error(capsys: CaptureFixture[str]) -> None:
     @log()
     def divide(x: int, y: int) -> float:
         return x / y
@@ -29,7 +32,7 @@ def test_log_to_console_error(capsys) -> None:
 
 
 # === Тест логирования в файл (успешный вызов) ===
-def test_log_to_file_success(tmp_path) -> None:
+def test_log_to_file_success(tmp_path: Path) -> None:
     log_file = tmp_path / "log.txt"
 
     @log(filename=str(log_file))
@@ -45,7 +48,7 @@ def test_log_to_file_success(tmp_path) -> None:
 
 
 # === Тест логирования в файл (ошибка) ===
-def test_log_to_file_error(tmp_path) -> None:
+def test_log_to_file_error(tmp_path: Path) -> None:
     log_file = tmp_path / "log.txt"
 
     @log(filename=str(log_file))
