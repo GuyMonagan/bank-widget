@@ -34,6 +34,29 @@ executed_ops = filter_by_state(operations)
 # Сортировка по дате (по умолчанию — по убыванию)
 sorted_ops = sort_by_date(executed_ops)
 ```
+## Переменные окружения
+
+Для работы внешнего API используется переменная окружения API_URL.
+
+Создайте .env на основе примера:
+```
+cp .env.example .env
+```
+ 
+Содержимое .env.example:
+```
+API_URL=https://api.exchangerate.host/latest
+
+```
+
+## Модуль utils
+
+`load_transactions(path: str)` — загружает список транзакций из JSON-файла.
+
+## Модуль external_api
+
+`fetch_exchange_rates()` — возвращает текущие курсы валют с внешнего API.
+
 ## Модуль generators
 
 Модуль предназначен для работы с транзакциями и генерации данных в потоковом режиме.
