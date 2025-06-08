@@ -1,5 +1,6 @@
 import pytest
 import json
+import tempfile
 from src.utils import load_transactions
 from unittest.mock import mock_open, patch
 
@@ -23,3 +24,31 @@ def test_load_transactions_success():
             result = load_transactions("data/operations.json")
             assert isinstance(result, list)
             assert result == fake_data
+
+
+def test_load_transactions_empty_file():
+    with patch("builtins.open", mock_open(read_data="")):
+        with patch("json.load", side_effect=ValueError):  # симулируем JSONDecodeError
+            result = load_transactions("data/fake.json")
+            assert result == []
+
+
+def test_load_transactions_file_not_found():
+    result = load_transactions("data/nonexistent.json")
+    assert result == []
+
+
+def test_load_transactions_empty_file():
+    with patch("builtins.open", mock_open(read_data="")):
+        with patch("json.load", side_effect=json.JSONDecodeError("Expecting value", "", 0)):
+            result = load_transactions("data/fake.json")
+            assert result == []
+
+
+def test_load_transactions_not_list():
+    with tempfile.NamedTemporaryFile(mode='w+', suffix='.json', delete=False) as tmp:
+        json.dump({"foo": "bar"}, tmp)
+        tmp_path = tmp.name
+
+    result = load_transactions(tmp_path)
+    assert result == []
