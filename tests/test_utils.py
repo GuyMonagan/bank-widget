@@ -1,20 +1,12 @@
-import pytest
 import json
 import tempfile
-from src.utils import load_transactions
 from unittest.mock import mock_open, patch
+
+from src.utils import load_transactions
 
 
 def test_load_transactions_success():
-    fake_data = [
-        {
-            "id": 1,
-            "operationAmount": {
-                "amount": "123.45",
-                "currency": {"code": "RUB"}
-            }
-        }
-    ]
+    fake_data = [{"id": 1, "operationAmount": {"amount": "123.45", "currency": {"code": "RUB"}}}]
 
     # превращаем список в JSON-строку
     json_str = json.dumps(fake_data)
@@ -24,13 +16,6 @@ def test_load_transactions_success():
             result = load_transactions("data/operations.json")
             assert isinstance(result, list)
             assert result == fake_data
-
-
-def test_load_transactions_empty_file():
-    with patch("builtins.open", mock_open(read_data="")):
-        with patch("json.load", side_effect=ValueError):  # симулируем JSONDecodeError
-            result = load_transactions("data/fake.json")
-            assert result == []
 
 
 def test_load_transactions_file_not_found():
@@ -46,7 +31,7 @@ def test_load_transactions_empty_file():
 
 
 def test_load_transactions_not_list():
-    with tempfile.NamedTemporaryFile(mode='w+', suffix='.json', delete=False) as tmp:
+    with tempfile.NamedTemporaryFile(mode="w+", suffix=".json", delete=False) as tmp:
         json.dump({"foo": "bar"}, tmp)
         tmp_path = tmp.name
 
