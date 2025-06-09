@@ -25,17 +25,6 @@ pytest = "^8.3.5"
 coverage = "^7.8.2"
 pytest-cov = "^6.1.1"
 
-[tool.flake8]
-ignore = ["E203", "W503"]
-max-line-length = 119
-exclude = '''
-/(
-    \.git
-    __pycache__
-    venv
-)/
-'''
-
 
 [tool.black]
 line-length = 119
