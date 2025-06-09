@@ -4,9 +4,8 @@ version = "0.1.0"
 description = ""
 authors = ["GuyMonagan <werevalkury@gmail.com>"]
 readme = "README.md"
-packages = [
-    { include = "masks", from = "src" }
-]
+packages = [{ include = "src" }]
+
 
 [tool.poetry.dependencies]
 python = "^3.11"
