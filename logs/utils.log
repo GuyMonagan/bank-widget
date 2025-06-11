@@ -1,0 +1,2 @@
+2025-06-11 12:31:02,573 - src.utils - DEBUG - Загружено 101 транзакций из data/operations.json
+2025-06-11 12:31:02,604 - src.utils - ERROR - Файл file_that_does_not_exist.json не найден
