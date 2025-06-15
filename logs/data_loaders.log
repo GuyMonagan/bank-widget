@@ -1,0 +1,3 @@
+2025-06-15 20:50:57,391 - src.data_loaders - DEBUG - Загружено 1000 транзакций из CSV: data/transactions.csv
+2025-06-15 20:50:58,323 - src.data_loaders - DEBUG - Листы Excel: ['Лист 1']
+2025-06-15 20:50:58,327 - src.data_loaders - DEBUG - Загружено 1000 транзакций из Excel (лист: Лист 1)
