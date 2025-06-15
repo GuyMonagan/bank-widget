@@ -1,21 +1,23 @@
-import pandas as pd
-from typing import Any
 import logging
 import os
+from typing import Any
 
-# Создаём папку logs, если вдруг ещё нет
+import pandas as pd
+
+from typing import cast
+
+
+# Создаём папку logs
 os.makedirs("logs", exist_ok=True)
 
-# Настройка логгера для data_loaders (по аналогии, вдруг понадобится)
+# Настройка логгера для data_loaders
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 file_handler = logging.FileHandler("logs/data_loaders.log", mode="w", encoding="utf-8")
 file_handler.setLevel(logging.DEBUG)
 
-file_formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(file_formatter)
 
 if not logger.hasHandlers():
@@ -31,7 +33,7 @@ def load_transactions_from_csv(filepath: str) -> list[dict[str, Any]]:
     """
     try:
         df = pd.read_csv(filepath)
-        data = df.to_dict(orient="records")
+        data = cast(list[dict[str, Any]], df.to_dict(orient="records"))
         logger.debug(f"Загружено {len(data)} транзакций из CSV: {filepath}")
         return data
     except FileNotFoundError:
@@ -55,7 +57,7 @@ def load_transactions_from_excel(filepath: str) -> list[dict[str, Any]]:
 
         for name, sheet in df.items():
             if not sheet.empty:
-                data = sheet.to_dict(orient="records")
+                data = cast(list[dict[str, Any]], sheet.to_dict(orient="records"))
                 logger.debug(f"Загружено {len(data)} транзакций из Excel (лист: {name})")
                 return data
 

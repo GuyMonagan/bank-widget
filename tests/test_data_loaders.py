@@ -1,5 +1,4 @@
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 from src.data_loaders import load_transactions_from_csv, load_transactions_from_excel
 
