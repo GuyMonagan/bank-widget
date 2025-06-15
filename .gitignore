@@ -4,3 +4,5 @@ __pycache__/
 venv/
 htmlcov/
 .env
+.coverage
+debug_mask_run.py
