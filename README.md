@@ -142,6 +142,31 @@ Inputs: (1, 0)
 
 ```
 
+## Модуль `data_loaders`
+
+Поддержка новых форматов данных: CSV и Excel.
+
+### Функции
+
+- `load_transactions_from_csv(filepath: str) -> list[dict[str, Any]]`  
+  Загружает список транзакций из CSV-файла.
+
+- `load_transactions_from_excel(filepath: str) -> list[dict[str, Any]]`  
+  Загружает список транзакций из Excel (.xlsx).
+
+### Пример использования
+
+```
+from data_loaders import load_transactions_from_csv, load_transactions_from_excel
+
+csv_data = load_transactions_from_csv("data/transactions.csv")
+excel_data = load_transactions_from_excel("data/transactions_excel.xlsx")
+
+print(len(csv_data))   # ➜ 1000
+print(len(excel_data)) # ➜ 1000
+```
+
+
 ## Тесты
 
 ```bash
