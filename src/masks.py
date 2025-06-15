@@ -41,7 +41,7 @@ def get_mask_account(account_number: int) -> str:
     """
     try:
         account_str = str(account_number)
-        result = f"{account_str[:4]} {account_str[4:6]}** **** {account_str[-4:]}"
+        result = f"**{account_str[-4:]}"
         logger.debug(f"Номер счёта успешно замаскирован: {result}")
         return result
     except Exception as e:
