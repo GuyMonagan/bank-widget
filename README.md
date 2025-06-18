@@ -166,6 +166,45 @@ print(len(csv_data))   # ➜ 1000
 print(len(excel_data)) # ➜ 1000
 ```
 
+## Новые функции
+
+### `process_bank_search`
+Ищет операции по заданной строке в описании. Использует регулярные выражения (`re`).
+
+```
+from processing import process_bank_search
+
+result = process_bank_search(transactions, "Перевод")
+```
+
+### `process_bank_operations`
+
+Считает количество операций по категориям (по описанию).
+
+```from processing import process_bank_operations
+
+result = process_bank_operations(transactions, ["Перевод", "Оплата"])
+```
+
+## `main.py`
+
+Основная точка входа в программу. Позволяет:
+
+Загрузить транзакции из JSON/CSV/XLSX или API
+
+Отфильтровать по статусу
+
+Отсортировать по дате
+
+Отфильтровать по валюте
+
+Найти по ключевому слову
+
+Посчитать категории
+
+`poetry run python main.py`
+
+
 
 ## Тесты
 

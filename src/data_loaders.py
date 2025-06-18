@@ -1,11 +1,9 @@
+import json
 import logging
 import os
-from typing import Any
+from typing import Any, cast
 
 import pandas as pd
-
-from typing import cast
-
 
 # Создаём папку logs
 os.makedirs("logs", exist_ok=True)
@@ -32,7 +30,7 @@ def load_transactions_from_csv(filepath: str) -> list[dict[str, Any]]:
     :return: Список словарей с транзакциями
     """
     try:
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(filepath, sep=";")  # ОБЯЗАТЕЛЬНО УКАЖИ sep!
         data = cast(list[dict[str, Any]], df.to_dict(orient="records"))
         logger.debug(f"Загружено {len(data)} транзакций из CSV: {filepath}")
         return data
@@ -68,4 +66,27 @@ def load_transactions_from_excel(filepath: str) -> list[dict[str, Any]]:
         return []
     except Exception as e:
         logger.error(f"Ошибка при чтении Excel: {filepath} | {e}")
+        return []
+
+
+def load_transactions_from_json(filepath: str) -> list[dict[str, Any]]:
+    """
+    Загружает транзакции из JSON-файла.
+    """
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if not isinstance(data, list):
+                logger.warning(f"JSON не содержит список: {filepath}")
+                return []
+            logger.debug(f"Загружено {len(data)} транзакций из JSON: {filepath}")
+            return data
+    except FileNotFoundError:
+        logger.error(f"Файл JSON не найден: {filepath}")
+        return []
+    except json.JSONDecodeError as e:
+        logger.error(f"Некорректный JSON в файле: {filepath} | {e}")
+        return []
+    except Exception as e:
+        logger.exception(f"Ошибка при чтении JSON: {filepath} | {e}")
         return []

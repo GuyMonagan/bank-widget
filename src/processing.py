@@ -1,5 +1,4 @@
 import re
-
 from collections import Counter
 from typing import Dict, List
 
@@ -31,7 +30,12 @@ def process_bank_search(data: List[Dict], search: str) -> List[Dict]:
     pattern = re.compile(re.escape(search), re.IGNORECASE)
     return [item for item in data if pattern.search(item.get("description", ""))]
 
-def process_bank_operations(data: List[Dict]) -> Dict[str, int]:
-    """Подсчёт количества транзакций по описанию."""
-    descriptions = [item.get("description", "") for item in data]
-    return dict(Counter(descriptions))
+
+def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str, int]:
+    """
+    Подсчет количества транзакций по заданным категориям (по описанию).
+    """
+    counts = Counter()
+    for cat in categories:
+        counts[cat] = sum(1 for item in data if cat.lower() in item.get("description", "").lower())
+    return dict(counts)
